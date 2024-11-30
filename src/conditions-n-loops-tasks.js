@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,17 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let number;
+
+  if (a >= b && a >= c) {
+    number = a;
+  } else if (b >= a && b >= c) {
+    number = b;
+  } else {
+    number = c;
+  }
+  return number;
 }
 
 /**
@@ -60,8 +69,14 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x) return true;
+
+  if (queen.y === king.y) return true;
+
+  if (Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)) return true;
+
+  return false;
 }
 
 /**
@@ -82,8 +97,14 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) return false;
+
+  if (a + b <= c || a + c <= b || b + c <= a) return false;
+
+  if (a === b || a === c || b === c) return true;
+
+  return false;
 }
 
 /**
@@ -100,8 +121,42 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romanNumerals = {
+    1: 'I',
+    4: 'IV',
+    5: 'V',
+    9: 'IX',
+    10: 'X',
+    20: 'XX',
+    30: 'XXX',
+  };
+
+  let result = '';
+  let number = num;
+
+  if (number >= 10) {
+    const tens = Math.floor(number / 10) * 10;
+    result += romanNumerals[tens];
+    number -= tens;
+  }
+
+  if (number > 0) {
+    if (romanNumerals[number]) {
+      result += romanNumerals[number];
+    } else {
+      if (number > 5) {
+        result += romanNumerals[5];
+        number -= 5;
+      }
+
+      for (let i = 0; i < number; i += 1) {
+        result += romanNumerals[1];
+      }
+    }
+  }
+
+  return result;
 }
 
 /**
